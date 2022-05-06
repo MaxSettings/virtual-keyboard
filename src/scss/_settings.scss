@@ -10,9 +10,9 @@ html {
 
 body {
   overflow-anchor: none;
-  font-family: "asd", sans-serif;
   background-color: var(--color-white);
   scroll-behavior: smooth;
+  background-color: #F1F3F9;
 }
 
 img {
@@ -51,7 +51,7 @@ a {
 
 .container {
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 30px;
   max-width: 1200px;
 }
 

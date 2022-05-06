@@ -89,7 +89,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    static: path.resolve(__dirname, 'app'),
+    contentBase: path.resolve(__dirname, 'app'),
     open: true,
     compress: true,
     hot: true,

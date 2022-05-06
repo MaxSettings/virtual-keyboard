@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "start": "cross-env NODE_ENV=development webpack serve --mode development"
   },
-  "author": "Maksim",
+  "author": "MaxSettings",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.12.7",

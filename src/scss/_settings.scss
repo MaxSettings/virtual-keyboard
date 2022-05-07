@@ -10,6 +10,7 @@ html {
 
 body {
   overflow-anchor: none;
+  font-family: 'Roboto', sans-serif;
   background-color: var(--color-white);
   scroll-behavior: smooth;
   background-color: #F1F3F9;
@@ -52,7 +53,7 @@ a {
 .container {
   margin: 0 auto;
   padding: 0 30px;
-  max-width: 1200px;
+  max-width: 831px;
 }
 
 .js-focus-visible :focus:not(.focus-visible) {

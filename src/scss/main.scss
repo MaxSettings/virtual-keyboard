@@ -56,19 +56,27 @@
 .key {
   min-width: 45px;
   height: 45px;
+  padding: 0;
   background-color: #8284A4;
-  font-size: 16px;
+  font-size: 14px;
   color: #ffffff;
   border-color: #0F1139;
+  transition: 0.3s;
+  outline: none;
   cursor: pointer;
 
   &:hover {
-    background-color: #0F1139;
-    ;
+    background-color: #D5DAEA;
+    color: #0F1139;
   }
 
   &.active {
-    background-color: #21268A;
+    transform: scale(0.9);
+    background-color: #878DF2;
+  }
+
+  &.pressed {
+    background-color: #6D72C4;
   }
 
   &#Backspace,

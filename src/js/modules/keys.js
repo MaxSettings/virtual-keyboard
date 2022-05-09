@@ -308,7 +308,7 @@ export const keys = {
     ru: 'ж',
     shiftEn: ':',
     shiftRu: 'Ж',
-    capsEn: ':',
+    capsEn: ';',
     capsRu: 'Ж',
   },
   Quote: {
@@ -438,14 +438,6 @@ export const keys = {
     shiftRu: 'Ctrl',
     capsEn: 'Ctrl',
     capsRu: 'Ctrl',
-  },
-  MetaLeft: {
-    en: 'Win',
-    ru: 'Win',
-    shiftEn: 'Win',
-    shiftRu: 'Win',
-    capsEn: 'Win',
-    capsRu: 'Win',
   },
   AltLeft: {
     en: 'Alt',

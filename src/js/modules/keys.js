@@ -1,4 +1,4 @@
-export const keys = {
+const keys = {
   Backquote: {
     en: '`',
     ru: 'ё',
@@ -496,3 +496,5 @@ export const keys = {
     capsRu: 'Ctrl',
   },
 };
+
+export default keys;

@@ -1,4 +1,4 @@
-export const createInfo = () => {
+const createInfo = () => {
   const info = document.createElement('div');
   const osDesc = document.createElement('p');
   const langDesc = document.createElement('p');
@@ -10,4 +10,6 @@ export const createInfo = () => {
   info.append(langDesc);
 
   return info;
-}
+};
+
+export default createInfo;

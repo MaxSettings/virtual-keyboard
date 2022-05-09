@@ -1,12 +1,9 @@
-import '../../node_modules/focus-visible/dist/focus-visible';
-
 import '../scss/main.scss';
 import '../index.html';
-
-import { createWrap } from './modules/keyboardWrap';
-import { createKeyboard } from './modules/keyboard';
-import { keys } from './modules/keys';
-import { createInfo } from './modules/info';
+import createWrap from './modules/keyboardWrap';
+import createKeyboard from './modules/keyboard';
+import keys from './modules/keys';
+import createInfo from './modules/info';
 
 const body = document.querySelector('body');
 const wrap = createWrap();
@@ -24,58 +21,52 @@ let lang = 'en';
 if (localStorage.getItem('lang') === null) {
   localStorage.setItem('lang', 'en');
 } else {
-  lang === localStorage.getItem('lang', lang);
+  lang = localStorage.getItem('lang', lang);
 }
 
 const updateButtons = (keyId) => {
-  let buttons = document.querySelectorAll('.key');
-  
-  for (let button of buttons) {
+  const buttons = document.querySelectorAll('.key');
+  for (const button of buttons) {
     if (keyId === 'ru') {
       if (isCapsLock) {
-        button.innerHTML = keys[button.id]['capsRu'];
+        button.innerHTML = keys[button.id].capsRu;
       } else {
-        button.innerHTML = keys[button.id]['ru'];
+        button.innerHTML = keys[button.id].ru;
       }
     }
-
     if (keyId === 'en') {
       if (isCapsLock) {
-        button.innerHTML = keys[button.id]['capsEn'];
+        button.innerHTML = keys[button.id].capsEn;
       } else {
-        button.innerHTML = keys[button.id]['en'];
+        button.innerHTML = keys[button.id].en;
       }
     }
-
     if (keyId === 'CapsLock') {
       if (isCapsLock) {
         button.innerHTML = keys[button.id][`${lang === 'en' ? 'capsEn' : 'capsRu'}`];
         document.querySelector('#CapsLock').classList.add('pressed');
-      } 
-      
+      }
       if (!isCapsLock) {
         button.innerHTML = keys[button.id][`${lang === 'en' ? 'en' : 'ru'}`];
         document.querySelector('#CapsLock').classList.remove('pressed');
-      } 
+      }
     }
-
     if (keyId === 'ShiftLeft' || keyId === 'ShiftRight') {
       if (isShift) {
         button.innerHTML = keys[button.id][`${lang === 'en' ? 'shiftEn' : 'shiftRu'}`];
         document.querySelector(`#${keyId}`).classList.add('pressed');
-      } 
-      
+      }
       if (!isShift) {
         button.innerHTML = keys[button.id][`${lang === 'en' ? 'en' : 'ru'}`];
         document.querySelector(`#${keyId}`).classList.remove('pressed');
       }
     }
   }
-}
+};
 
-for (let key in keys) {
-  let keyNode = document.createElement('button');
-  keyNode.innerHTML = localStorage.getItem('lang') === 'en' ? keys[key]['en'] : keys[key]['ru'];
+for (const key in keys) {
+  const keyNode = document.createElement('button');
+  keyNode.innerHTML = localStorage.getItem('lang') === 'en' ? keys[key].en : keys[key].ru;
   keyNode.classList.add('key');
   keyNode.id = `${key}`;
 
@@ -111,20 +102,24 @@ for (let key in keys) {
       event.preventDefault();
 
       if (isShiftPressed) {
-        lang === 'en' ? lang = 'ru' : lang = 'en';
+        if (lang === 'en') {
+          lang = 'ru';
+        } else {
+          lang = 'en';
+        }
         localStorage.setItem('lang', `${lang === 'en' ? 'en' : 'ru'}`);
         updateButtons(lang);
       }
     });
 
-    keyNode.addEventListener('mouseup', (event) => {
+    keyNode.addEventListener('mouseup', () => {
       if (isShiftPressed) {
-        document.querySelectorAll('.pressed').forEach(it => it.classList.remove('pressed'));
+        document.querySelectorAll('.pressed').forEach((it) => it.classList.remove('pressed'));
         isShiftPressed = false;
       }
     });
   } else if (keyNode.id === 'Space') {
-    keyNode.addEventListener('mousedown', (event) => {
+    keyNode.addEventListener('mousedown', () => {
       display.value += ' ';
     });
   } else {
@@ -132,7 +127,6 @@ for (let key in keys) {
       display.value += keyNode.textContent;
     });
   }
-  
   keyNode.addEventListener('mousedown', () => {
     keyNode.classList.add('active');
   });
@@ -144,7 +138,6 @@ for (let key in keys) {
   keyboard.appendChild(keyNode);
 }
 
-
 document.addEventListener('keydown', (event) => {
   if (keys[event.code] === undefined) {
     return;
@@ -154,7 +147,7 @@ document.addEventListener('keydown', (event) => {
   document.getElementById(`${event.code}`).classList.add('active');
 
   if (event.code === 'Enter') {
-    display.value += `\n`;
+    display.value += '\n';
   } else if (event.code === 'Backspace') {
     display.value = display.value.slice(0, display.value.length - 1);
   } else if (event.code === 'CapsLock') {
@@ -170,7 +163,6 @@ document.addEventListener('keydown', (event) => {
     event.preventDefault();
   } else if (event.code === 'AltLeft' || event.code === 'AltRight') {
     event.preventDefault();
-    
     if (isShiftPressed) {
       lang === 'en' ? lang = 'ru' : lang = 'en';
       localStorage.setItem('lang', `${lang === 'en' ? 'en' : 'ru'}`);
@@ -185,7 +177,7 @@ document.addEventListener('keydown', (event) => {
   } else if (event.code === 'ArrowLeft') {
     display.value += '←';
   } else {
-    display.value += lang === 'en' ? keys[event.code]['en'] : keys[event.code]['ru'];
+    display.value += lang === 'en' ? keys[event.code].en : keys[event.code].ru;
   }
 });
 
@@ -201,5 +193,4 @@ document.addEventListener('keyup', (event) => {
     isShiftPressed = false;
     updateButtons(event.code);
   }
-})
-
+});

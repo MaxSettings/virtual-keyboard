@@ -26,49 +26,51 @@ if (localStorage.getItem('lang') === null) {
 
 const updateButtons = (keyId) => {
   const buttons = document.querySelectorAll('.key');
-  for (const button of buttons) {
+  for (let i = 0; i < buttons.length; i += 1) {
     if (keyId === 'ru') {
       if (isCapsLock) {
-        button.innerHTML = keys[button.id].capsRu;
+        buttons[i].innerHTML = keys[buttons[i].id].capsRu;
       } else {
-        button.innerHTML = keys[button.id].ru;
+        buttons[i].innerHTML = keys[buttons[i].id].ru;
       }
     }
     if (keyId === 'en') {
       if (isCapsLock) {
-        button.innerHTML = keys[button.id].capsEn;
+        buttons[i].innerHTML = keys[buttons[i].id].capsEn;
       } else {
-        button.innerHTML = keys[button.id].en;
+        buttons[i].innerHTML = keys[buttons[i].id].en;
       }
     }
     if (keyId === 'CapsLock') {
       if (isCapsLock) {
-        button.innerHTML = keys[button.id][`${lang === 'en' ? 'capsEn' : 'capsRu'}`];
+        buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'capsEn' : 'capsRu'}`];
         document.querySelector('#CapsLock').classList.add('pressed');
       }
       if (!isCapsLock) {
-        button.innerHTML = keys[button.id][`${lang === 'en' ? 'en' : 'ru'}`];
+        buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'en' : 'ru'}`];
         document.querySelector('#CapsLock').classList.remove('pressed');
       }
     }
     if (keyId === 'ShiftLeft' || keyId === 'ShiftRight') {
       if (isShift) {
-        button.innerHTML = keys[button.id][`${lang === 'en' ? 'shiftEn' : 'shiftRu'}`];
+        buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'shiftEn' : 'shiftRu'}`];
         document.querySelector(`#${keyId}`).classList.add('pressed');
       }
       if (!isShift) {
-        button.innerHTML = keys[button.id][`${lang === 'en' ? 'en' : 'ru'}`];
+        buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'en' : 'ru'}`];
         document.querySelector(`#${keyId}`).classList.remove('pressed');
       }
     }
   }
 };
 
-for (const key in keys) {
+const keysKeys = Object.keys(keys);
+
+keysKeys.forEach((it) => {
   const keyNode = document.createElement('button');
-  keyNode.innerHTML = localStorage.getItem('lang') === 'en' ? keys[key].en : keys[key].ru;
+  keyNode.innerHTML = localStorage.getItem('lang') === 'en' ? keys[it].en : keys[it].ru;
   keyNode.classList.add('key');
-  keyNode.id = `${key}`;
+  keyNode.id = `${it}`;
 
   if (keyNode.id === 'Backspace') {
     keyNode.addEventListener('mousedown', () => {
@@ -114,7 +116,9 @@ for (const key in keys) {
 
     keyNode.addEventListener('mouseup', () => {
       if (isShiftPressed) {
-        document.querySelectorAll('.pressed').forEach((it) => it.classList.remove('pressed'));
+        document.querySelectorAll('.pressed').forEach((btn) => {
+          btn.classList.remove('pressed');
+        });
         isShiftPressed = false;
       }
     });
@@ -136,7 +140,7 @@ for (const key in keys) {
   });
 
   keyboard.appendChild(keyNode);
-}
+});
 
 document.addEventListener('keydown', (event) => {
   if (keys[event.code] === undefined) {
@@ -164,7 +168,11 @@ document.addEventListener('keydown', (event) => {
   } else if (event.code === 'AltLeft' || event.code === 'AltRight') {
     event.preventDefault();
     if (isShiftPressed) {
-      lang === 'en' ? lang = 'ru' : lang = 'en';
+      if (lang === 'en') {
+        lang = 'ru';
+      } else {
+        lang = 'en';
+      }
       localStorage.setItem('lang', `${lang === 'en' ? 'en' : 'ru'}`);
       updateButtons(lang);
     }

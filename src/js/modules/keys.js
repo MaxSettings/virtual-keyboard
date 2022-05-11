@@ -448,12 +448,12 @@ const keys = {
     capsRu: 'Alt',
   },
   Space: {
-    en: 'Space',
-    ru: 'Space',
-    shiftEn: 'Space',
-    shiftRu: 'Space',
-    capsEn: 'Space',
-    capsRu: 'Space',
+    en: ' ',
+    ru: ' ',
+    shiftEn: ' ',
+    shiftRu: ' ',
+    capsEn: ' ',
+    capsRu: ' ',
   },
   AltRight: {
     en: 'Alt',

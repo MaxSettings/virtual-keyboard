@@ -56,8 +56,13 @@ const updateButtons = (keyId) => {
         buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'shiftEn' : 'shiftRu'}`];
         document.querySelector(`#${keyId}`).classList.add('pressed');
       }
+
       if (!isShift) {
-        buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'en' : 'ru'}`];
+        if (isCapsLock) {
+          buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'capsEn' : 'capsRu'}`];
+        } else {
+          buttons[i].innerHTML = keys[buttons[i].id][`${lang === 'en' ? 'en' : 'ru'}`];
+        }
         document.querySelector(`#${keyId}`).classList.remove('pressed');
       }
     }
@@ -184,8 +189,27 @@ document.addEventListener('keydown', (event) => {
     display.value += '↓';
   } else if (event.code === 'ArrowLeft') {
     display.value += '←';
+  } else if (event.code === 'Space') {
+    display.value += ' ';
   } else {
-    display.value += lang === 'en' ? keys[event.code].en : keys[event.code].ru;
+    // let input = '';
+    // if (lang === 'en') {
+    //   if (isCapsLock) {
+    //     input = keys[event.code].capsEn;
+    //   } else {
+    //     input = keys[event.code].en;
+    //   }
+    // }
+    // if (lang === 'ru') {
+    //   if (isCapsLock) {
+    //     input = keys[event.code].capsRu;
+    //   } else {
+    //     input = keys[event.code].ru;
+    //   }
+    // }
+
+    // display.value += input;
+    display.value += document.getElementById(event.code).textContent;
   }
 });
 
